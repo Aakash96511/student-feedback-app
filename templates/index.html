@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="hero">
+            <p class="tag">DEVOPS PROJECT</p>
+            <h1>Student Feedback System</h1>
+            <p>Share your feedback about a course or subject.</p>
+        </section>
+
+        <section class="card">
+            <h2>Submit Feedback</h2>
+            <form method="POST">
+                <label for="name">Student Name</label>
+                <input id="name" name="name" type="text"
+                       placeholder="Enter your name" required>
+
+                <label for="course">Course / Subject</label>
+                <input id="course" name="course" type="text"
+                       placeholder="e.g. DevOps" required>
+
+                <label for="feedback">Feedback</label>
+                <textarea id="feedback" name="feedback"
+                          placeholder="Write your feedback..." required></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Submitted Feedback</h2>
+            {% if feedbacks %}
+                {% for item in feedbacks %}
+                <article class="feedback">
+                    <h3>{{ item.name }}</h3>
+                    <p><strong>Course:</strong> {{ item.course }}</p>
+                    <p><strong>Feedback:</strong> {{ item.feedback }}</p>
+                </article>
+                {% endfor %}
+            {% else %}
+                <p class="empty">No feedback submitted yet.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
