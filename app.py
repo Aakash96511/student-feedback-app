@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+
 feedbacks = []
 
 
@@ -8,12 +9,14 @@ feedbacks = []
 def index():
     if request.method == "POST":
         name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
         course = request.form.get("course", "").strip()
         feedback = request.form.get("feedback", "").strip()
 
-        if name and course and feedback:
+        if name and email and course and feedback:
             feedbacks.append({
                 "name": name,
+                "email": email,
                 "course": course,
                 "feedback": feedback
             })
@@ -21,7 +24,7 @@ def index():
     return render_template("index.html", feedbacks=feedbacks)
 
 
-@app.get("/health")
+@app.route("/health")
 def health():
     return {"status": "healthy"}, 200
 
